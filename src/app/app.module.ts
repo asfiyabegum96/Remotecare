@@ -59,10 +59,12 @@ import { UpdateOrgComponent } from './organisation/update-org/update-org.compone
 import { AddAssignComponent } from './assign/add-assign/add-assign.component';
 import { ViewAssignComponent } from './assign/view-assign/view-assign.component';
 import { AddAllocateComponent } from './allocate/add-allocate/add-allocate.component';
-import { ViewAllocateComponent } from './allocate/view-allocate/view-allocate.component'
+import { ViewAllocateComponent } from './allocate/view-allocate/view-allocate.component';
+import {HighchartsChartModule} from 'highcharts-angular';
 @NgModule({
   declarations: [
-    AppComponent, HomeComponent, LoginComponent, HeaderComponent, AboutComponent, AddUserComponent, ViewUserComponent, UpdateUserComponent, AddDeviceComponent, ViewDeviceComponent, UpdateDeviceComponent, AddOrgComponent, ViewOrgComponent, UpdateOrgComponent, AddAssignComponent, ViewAssignComponent, AddAllocateComponent, ViewAllocateComponent, 
+    AppComponent, HomeComponent, LoginComponent, HeaderComponent, AboutComponent, AddUserComponent, ViewUserComponent, UpdateUserComponent, AddDeviceComponent, ViewDeviceComponent, UpdateDeviceComponent, AddOrgComponent, ViewOrgComponent, UpdateOrgComponent, AddAssignComponent, ViewAssignComponent, AddAllocateComponent, ViewAllocateComponent,
+    
   ],
   imports: [
     BrowserModule,  AppRoutingModule,FormsModule,
@@ -90,7 +92,7 @@ import { ViewAllocateComponent } from './allocate/view-allocate/view-allocate.co
     MatSelectModule,
     MatButtonModule,
     MatDatepickerModule,
-    
+    HighchartsChartModule,
     MatRadioModule
   
    

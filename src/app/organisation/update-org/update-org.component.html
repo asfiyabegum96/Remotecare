@@ -1,0 +1,75 @@
+<mat-card align="center">
+    <h4 align="center">Organisation Unit registration</h4>
+    <form [formGroup]="updateservice" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field >
+                    <mat-label>Organization Id</mat-label>
+                    <input  matInput formControlName="OrganizationId" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-label>Organization Name</mat-label>
+                    <input type="text" matInput formControlName="OrganizationName" autocomplete="off">
+                </mat-form-field>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field >
+                    <mat-label>Address1</mat-label>
+                    <input  matInput formControlName="address1" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-label>Address2</mat-label>
+                    <input type="text" matInput formControlName="address2" autocomplete="off">
+                </mat-form-field>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field >
+                    <mat-label>District</mat-label>
+                    <input type="text"  matInput formControlName="district" autocomplete="off">
+                </mat-form-field>
+                
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-label>State</mat-label>
+                    <input  matInput formControlName="state" autocomplete="off">
+                </mat-form-field>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field >
+                        <mat-label>Pin Code</mat-label>
+                        <input type="text"  matInput formControlName="pin" autocomplete="off">
+                    </mat-form-field>
+                    
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field >
+                        <mat-label>ID</mat-label>
+                        <input type="text"  matInput formControlName="_id" autocomplete="off" readonly>
+                    </mat-form-field>
+                    
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" >
+                        <!-- device upadte in smartxengineer,,organization file,dashboard -->
+                        
+                        <input type="file" (change)="onFileSelected($event)" formControlName="file">
+        
+                    </div>
+                </div>
+        <button type="submit" mat-raised-button>Register</button>
+    </form>
+</mat-card>

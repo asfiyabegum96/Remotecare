@@ -1,0 +1,193 @@
+<mat-card align="center">
+    <h4 align="center">EDIT</h4>
+    <form [formGroup]="updateform" (ngSubmit)="onSubmit()">
+      
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="emailId" autocomplete="off" >
+                </mat-form-field>
+
+
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>ID</mat-label>
+                    <input type="_id" matInput formControlName="_id" autocomplete="off" readonly>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>User Name</mat-label>
+                    <input matInput formControlName="userName" autocomplete="off" required>
+                </mat-form-field>
+
+
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>Name of the Service Provider</mat-label>
+                    <input type="text" matInput formControlName="password" autocomplete="off" required >
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="emailId" autocomplete="off" required>
+                </mat-form-field>
+
+
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user">
+                    <mat-label>ID</mat-label>
+                    <input type="_id" matInput formControlName="_id" autocomplete="off" readonly>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+             
+                <mat-form-field *ngIf="user">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput formControlName="userName" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+
+                <mat-form-field *ngIf="user">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender" name="gender" required>
+                        <mat-option *ngFor="let gend of gend" [value]="gend">
+                            {{gend}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>Address1</mat-label>
+                    <input type="text" matInput formControlName="address" autocomplete="off" required>
+                 
+                  
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>Address2</mat-label>
+                    <input type="text" matInput formControlName="address2" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>Mobile Number</mat-label>
+                    <input type="text" matInput formControlName="mobileNumber" autocomplete="off" required>
+                    <mat-error *ngIf="f.mobileNumber.touched && f.mobileNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.mobileNumber.errors.required">mobile number is required</div>
+                        <div *ngIf="f.mobileNumber.errors.minlength">mobile number must be 10 digits</div>
+                        <div *ngIf="f.mobileNumber.errors.maxlength">mobile Number must be 10 digits</div>
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="show&&!user">
+                    <mat-label>Location Details</mat-label>
+                    <input type="text" matInput formControlName="location" autocomplete="off" >
+                    </mat-form-field>
+                    </div>
+        </div>
+       
+
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+
+                <mat-form-field *ngIf="user">
+                    <mat-label>Age</mat-label>
+                    <input type="number" matInput formControlName="age" autocomplete="off" required>
+                    <mat-error *ngIf="f.age.touched && f.age.errors" class="invalid-feedback">
+                        <div *ngIf="f.age.errors.required">age is required</div>
+                        <div *ngIf="f.age.errors.min">age must be less than 100 </div>
+                        <div *ngIf="f.age.errors.max">age must be less than 100 </div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user">
+                    <mat-label>Address</mat-label>
+                    <input type="text" matInput formControlName="address" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row" *ngIf="user">
+
+            <div class="col-md-6">
+                <mat-form-field >
+                    <mat-label>Mobile Number</mat-label>
+                    <input type="text" matInput formControlName="mobileNumber" autocomplete="off" required>
+                    <mat-error *ngIf="f.mobileNumber.touched && f.mobileNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.mobileNumber.errors.required">mobile number is required</div>
+                        <div *ngIf="f.mobileNumber.errors.minlength">mobile number must be 10 digits</div>
+                        <div *ngIf="f.mobileNumber.errors.maxlength">mobile Number must be 10 digits</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" >
+               
+                <mat-form-field >
+                    <mat-label>User Type</mat-label>
+                    <mat-select formControlName="userType" #temp>
+                        <mat-option *ngFor="let type of type" [value]="type">{{type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" >
+                <div *ngIf="temp.value=='admin'">
+                    <mat-form-field>
+                        <mat-label>Extra role</mat-label>
+                        <mat-select formControlName="extraRole" multiple #temp>
+                            <mat-option *ngFor="let multipleuser of multipleuser" [value]="multipleuser">
+                                {{multipleuser}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user">
+                    <mat-label>User Active</mat-label>
+                    <mat-select formControlName="isActive">
+
+                      
+
+                        <mat-option *ngFor="let isactive of isactive" [value]="isactive.id">
+                            {{isactive.id}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div> 
+
+        <button type="submit" mat-raised-button>Register</button>
+        <!-- <button type="submit" [disabled]="updateform.pristine || updateform.invalid" mat-raised-button>Register</button> -->
+    </form>
+</mat-card>

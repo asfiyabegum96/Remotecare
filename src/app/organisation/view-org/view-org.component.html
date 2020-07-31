@@ -1,0 +1,86 @@
+<!-- <div>
+  <button mat-stroked-button *ngIf="userType" routerLink="/add-service" style="margin-bottom: 30px">Add
+    OrganisationUnit</button>
+</div> -->
+<div>
+    <mat-form-field style="float: right;width:auto" class="border-success" style="width: 400px;">
+      <mat-label>SEARCH</mat-label>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Ex. Mia">
+    </mat-form-field>
+  
+    <div _ngcontent-etd-c17 class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+  
+        <!-- ID Column -->
+        <ng-container matColumnDef="OrganizationId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;"> Organization Id </th>
+          <td mat-cell *matCellDef="let row"> {{row.OrganizationId}} </td>
+        </ng-container>
+  
+        <!-- Progress Column -->
+        <ng-container matColumnDef="OrganizationName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">Organisation Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.OrganizationName}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="address1">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">Address1 </th>
+          <td mat-cell *matCellDef="let row"> {{row.address1}} </td>
+        </ng-container>
+  
+        <!-- Color Column -->
+        <ng-container matColumnDef="address2">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">Address2 </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.address2}} </td>
+        </ng-container>
+        <ng-container matColumnDef="district">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">District </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.district}} </td>
+        </ng-container>
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">State </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.state}} </td>
+        </ng-container>
+        <ng-container matColumnDef="pin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">  Pin Code </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.pin}} </td>
+        </ng-container>
+       
+        <ng-container   matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">Edit </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color">
+          <button mat-icon-button [routerLink]="['/dashboard/update-org',row._id]">
+            <mat-icon>launch</mat-icon>
+        </button></td>
+        </ng-container>
+        <ng-container   matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">Delete </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color">
+          <button mat-icon-button (click)="delete(row._id)">
+            <mat-icon>delete</mat-icon>
+        </button></td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  
+  
+    </div>
+  
+    
+   
+    <div *ngIf="userType" class="float">
+      <mat-icon  routerLink="/dashboard/add-org"
+              matTooltip="Add Organisation"
+              aria-label="Button that displays a tooltip when focused or hovered over">
+        add
+      </mat-icon>
+      </div>
+  
+  
+  

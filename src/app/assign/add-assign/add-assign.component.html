@@ -1,0 +1,32 @@
+
+<mat-card>
+    <h4 align="center">ASSIGN DEVICE</h4>
+    <form [formGroup]="assignForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field >
+                    <mat-label>DeviceId</mat-label>
+                    <!-- <input  matInput formControlName="deviceId" autocomplete="off"> -->
+                    <mat-select formControlName="deviceId" name="deviceId" required>
+                        <mat-option *ngFor="let deviceid of deviceid" [value]="deviceid.deviceId">
+                            {{deviceid.deviceId}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-6" >
+                <mat-form-field>
+                    <mat-label>Admin</mat-label>
+                                       <mat-select  formControlName="assignedToAdmin" name="userId" required>
+                        <mat-option *ngFor="let admin of admin" [value]="admin.userId">
+                            {{admin.userId}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+           
+        </div>
+        <button type="submit" mat-raised-button >Register</button>
+    </form>
+</mat-card>

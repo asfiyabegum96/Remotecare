@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+.mat-table{
+    background-color: white;
+    color: black;
+}
+
+.float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color:cornflowerblue;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+
+}
+mat-icon{
+  margin-top: 15px;
+}
+
+.mat-table .mat-cell{
+   
+    color: black;
+}
+
+.mat-table .mat-header-cell{
+    color: blue;
+    font-weight: bold;
+}

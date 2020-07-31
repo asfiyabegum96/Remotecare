@@ -1,0 +1,45 @@
+<mat-card>
+    <h4 align="center">Allocation</h4>
+    <form [formGroup]="mapForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field >
+                    <mat-label>Device Id</mat-label>
+                    <!-- <input  matInput formControlName="deviceId" autocomplete="off"> -->
+                    <mat-select formControlName="deviceId" name="deviceId" required>
+                        <mat-option *ngFor="let arr of arr" [value]="arr.deviceId">
+                            {{arr.deviceId}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-6" >
+                <mat-form-field>
+                    <mat-label>Service Provider</mat-label>
+                                       <mat-select  formControlName="serviceProviderId" name="serviceProviderId" required>
+                        <mat-option *ngFor="let spi of spi" [value]="spi.userId">
+                            {{spi.userId}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+           
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-6">
+                <mat-form-field >
+                    <mat-label>choose patient</mat-label>
+                  
+                    <mat-select formControlName="patientId" name="patientId">
+                        <mat-option *ngFor="let patient of patient" [value]="patient.userId">
+                            {{patient.userId}}
+                        </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+            </div>
+             </div>  -->
+        <button type="submit" mat-raised-button >Register</button>
+    </form>
+</mat-card>

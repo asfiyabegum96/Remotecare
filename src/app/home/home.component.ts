@@ -18,7 +18,7 @@ export class HomeComponent {
          text: 'Users'
       },
       tooltip: {
-         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+         pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       plotOptions: {
          pie: {
@@ -42,10 +42,10 @@ export class HomeComponent {
          type: 'pie',
          name: 'Users count',
          data: [
-            ['Patients', 45.0],
-            ['Admins', 26.8],
-            ['Doctors & Service providers', 8.5],
-            ['Support Engineers', 6.2],
+            ['Patients', 0],
+            ['Admins', 0],
+            ['Doctors & Service providers', 0],
+            ['Support Engineers', 0],
          ]
       }]
    };
@@ -201,8 +201,13 @@ export class HomeComponent {
       ]
    };
    totalUsers = 0;
+   updateForm: boolean;
+   users: Array<any> = [];
    totalDevices = 0;
    totalPatients = 0;
+   adminCount = 0;
+   serviceCount = 0;
+   engineerCount = 0;
    constructor(
       private service: BackendserviceService
    ) { }
@@ -210,11 +215,46 @@ export class HomeComponent {
    ngOnInit() {
       forkJoin(this.service.getuser(null), this.service.getdevice(null), this.service.getpatient())
          .subscribe((dataArray: Array<any>) => {
-            this.totalUsers = dataArray[0].data.length;
-            this.totalDevices = dataArray[1].data.length;
-            this.totalPatients = dataArray[2].data.length;
+            this.users = dataArray[0].data;
+            this.totalUsers = dataArray[0].data ? dataArray[0].data.length : 0;
+            this.totalDevices = dataArray[1].data ? dataArray[1].data.length : 0;
+            this.totalPatients = dataArray[2].data ? dataArray[2].data.length : 0;
+            this.handleUsersData();
          }, (error) => {
             console.log(error);
          })
+   }
+
+   handleUsersData(): void {
+      if (this.users.length) {
+         debugger;
+         this.users.forEach(element => {
+            if (element.extraRole.length) {
+               element.extraRole.forEach(roleElement => {
+                  this.updateUserSeries(roleElement)
+               });
+            }
+            this.updateUserSeries(element.userType)
+         });
+      }
+   }
+
+   updateUserSeries(element) {
+      switch (element) {
+         case 'superadmin':
+         case 'admin':
+            this.adminCount++;
+            this.chartOptions.series[0].data[1] = ['Admins', this.adminCount];
+            break;
+         case 'ServiceProvider':
+            this.serviceCount++;
+            this.chartOptions.series[0].data[2] = ['Doctors & Service providers', this.serviceCount];
+            break;
+         case 'smartxengineer':
+            this.engineerCount++;
+            this.chartOptions.series[0].data[3] = ['Support Engineers', this.engineerCount];
+            break;
+      }
+      this.updateForm = true;
    }
 }

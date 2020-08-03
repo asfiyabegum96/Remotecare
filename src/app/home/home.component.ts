@@ -227,7 +227,6 @@ export class HomeComponent {
 
    handleUsersData(): void {
       if (this.users.length) {
-         debugger;
          this.users.forEach(element => {
             if (element.extraRole.length) {
                element.extraRole.forEach(roleElement => {

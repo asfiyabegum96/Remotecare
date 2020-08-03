@@ -1,4 +1,4 @@
- <mat-card align="center">
+<mat-card align="center">
 
     <h4 align="center">REGISTRATION</h4>
     <form [formGroup]="Userform" (ngSubmit)="onSubmit()">
@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <mat-form-field *ngIf="show&&!user">
                     <mat-label>E-mail</mat-label>
-                    <input matInput formControlName="emailId" autocomplete="off" >
+                    <input matInput formControlName="emailId" autocomplete="off">
                 </mat-form-field>
 
 
@@ -14,7 +14,7 @@
             <div class="col-md-6">
                 <mat-form-field *ngIf="show&&!user">
                     <mat-label>Password</mat-label>
-                    <input type="password" matInput formControlName="password" autocomplete="off" >
+                    <input type="password" matInput formControlName="password" autocomplete="off">
                 </mat-form-field>
             </div>
 
@@ -31,7 +31,7 @@
             <div class="col-md-6">
                 <mat-form-field *ngIf="show&&!user">
                     <mat-label>Name of the Service Provider</mat-label>
-                    <input type="text" matInput formControlName="password" autocomplete="off" required >
+                    <input type="text" matInput formControlName="password" autocomplete="off" required>
                 </mat-form-field>
             </div>
 
@@ -56,7 +56,7 @@
         <div class="row">
             <div class="col-md-6">
 
-             
+
                 <mat-form-field *ngIf="user">
                     <mat-label>Name</mat-label>
                     <input type="text" matInput formControlName="userName" autocomplete="off" required>
@@ -79,8 +79,8 @@
                 <mat-form-field *ngIf="show&&!user">
                     <mat-label>Address1</mat-label>
                     <input type="text" matInput formControlName="address" autocomplete="off" required>
-                 
-                  
+
+
                 </mat-form-field>
             </div>
             <div class="col-md-6">
@@ -106,11 +106,11 @@
             <div class="col-md-6">
                 <mat-form-field *ngIf="show&&!user">
                     <mat-label>Location Details</mat-label>
-                    <input type="text" matInput formControlName="location" autocomplete="off" >
-                    </mat-form-field>
-                    </div>
+                    <input type="text" matInput formControlName="location" autocomplete="off">
+                </mat-form-field>
+            </div>
         </div>
-       <div class="row">
+        <div class="row">
             <div class="col-md-6">
 
                 <mat-form-field *ngIf="user">
@@ -134,7 +134,7 @@
         <div class="row" *ngIf="user">
 
             <div class="col-md-6">
-                <mat-form-field >
+                <mat-form-field>
                     <mat-label>Mobile Number</mat-label>
                     <input type="text" matInput formControlName="mobileNumber" autocomplete="off" required>
                     <mat-error *ngIf="f.mobileNumber.touched && f.mobileNumber.errors" class="invalid-feedback">
@@ -144,16 +144,16 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-md-3" >
-               
-                <mat-form-field >
+            <div class="col-md-3">
+
+                <mat-form-field>
                     <mat-label>User Type</mat-label>
                     <mat-select formControlName="userType" #temp>
                         <mat-option *ngFor="let type of type" [value]="type">{{type}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="col-md-3" >
+            <div class="col-md-3">
                 <div *ngIf="temp.value=='admin'">
                     <mat-form-field>
                         <mat-label>Extra role</mat-label>
@@ -167,12 +167,66 @@
         </div>
 
 
-        
-        <div class="row">
-          
-        </div>
-      
 
-        <button type="submit"  mat-raised-button>Register</button>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-label>Choose hierarchy levels</mat-label>
+                    <mat-select formControlName="hierarchyLevels" (selectionChange)="hierarchySelect()"
+                        name="hierarchyLevels" required>
+                        <mat-option *ngFor="let type of levels" [value]="type">
+                            {{type}}
+                            <button type="button" (click)="hierarchySelect()" style="float: right; border: none;"
+                                name="button">+</button>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="Country">
+                    <mat-label>Country</mat-label>
+                    <input type="text" matInput formControlName="country" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="State">
+                    <mat-label>State</mat-label>
+                    <input type="text" matInput formControlName="state" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="District">
+                    <mat-label>District</mat-label>
+                    <input type="text" matInput formControlName="district" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="City">
+                    <mat-label>City</mat-label>
+                    <input type="text" matInput formControlName="city" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="Zipcode">
+                    <mat-label>Zipcode</mat-label>
+                    <input type="text" matInput formControlName="zipcode" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="Village">
+                    <mat-label>Village</mat-label>
+                    <input type="text" matInput formControlName="village" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <button type="submit" mat-raised-button>Register</button>
     </form>
-</mat-card> 
+</mat-card>

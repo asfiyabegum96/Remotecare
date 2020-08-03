@@ -14,7 +14,14 @@ import { BackendserviceService } from 'src/app/backendservice.service';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  type: string[] = [ 'smartxengineer', 'admin'];
+  Country: Boolean;
+  District: Boolean;
+  State: Boolean;
+  City: Boolean;
+  Zipcode: Boolean;
+  Village: Boolean;
+  levels: string[] = ['Global', 'Country', 'State', 'District', 'City', 'Zipcode', 'Village'];
+  type: string[] = ['smartxengineer', 'admin'];
   multipleuser: string[] = ['ServiceProvider']
   gend: string[] = ['Male', 'Female', 'Do Not Want To Mention']
   code: any[];
@@ -25,8 +32,8 @@ export class AddUserComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private service:BackendserviceService
-  ) { 
+    private service: BackendserviceService
+  ) {
     this.Userform = this.fb.group({
       userId: [''],
       password: '',
@@ -35,12 +42,18 @@ export class AddUserComponent implements OnInit {
       gender: '',
       age: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(99)])],
       address: '',
+      hierarchyLevels: 'Global',
       emailId: '',
       mobileNumber: ['', Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(10)])],
-    address2:'',
-    location:'',
+      address2: '',
+      location: '',
       extraRole: '',
-    
+      country: '',
+      state : '',
+      district: '',
+      city: '',
+      zipcode: '',
+      village: ''
     })
   }
   get f() { return this.Userform.controls; }
@@ -95,5 +108,10 @@ export class AddUserComponent implements OnInit {
     )
   }
 
+  hierarchySelect() {
+    const selectedValue = this.Userform.value.hierarchyLevels;
+    this[selectedValue] = true;
+    this.levels = this.levels.filter((data) => data !== selectedValue);
+  }
 
 }

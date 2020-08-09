@@ -140,7 +140,7 @@ export class HomeComponent {
       series: [
          {
             name: 'Count',
-            data: [107, 31, 635, 203,],
+            data: [0, 0, 0, 0],
          },
 
       ]
@@ -194,7 +194,7 @@ export class HomeComponent {
       series: [
          {
             name: 'Count',
-            data: [160, 250, 410,],
+            data: [0, 0, 0],
             borderRadius: 10
          },
 
@@ -208,6 +208,13 @@ export class HomeComponent {
    adminCount = 0;
    serviceCount = 0;
    engineerCount = 0;
+   patientCount = 0;
+   currentPatients = 0;
+   pastPatients = 0;
+   patients = [];
+   devices = [];
+   assignedDevices = 0;
+   inactiveDevices = 0;
    constructor(
       private service: BackendserviceService
    ) { }
@@ -218,8 +225,12 @@ export class HomeComponent {
             this.users = dataArray[0].data;
             this.totalUsers = dataArray[0].data ? dataArray[0].data.length : 0;
             this.totalDevices = dataArray[1].data ? dataArray[1].data.length : 0;
+            this.devices = dataArray[1].data;
+            this.patients = dataArray[2].data;
             this.totalPatients = dataArray[2].data ? dataArray[2].data.length : 0;
             this.handleUsersData();
+            this.handlePatients();
+            this.handleDevices();
          }, (error) => {
             console.log(error);
          })
@@ -228,12 +239,45 @@ export class HomeComponent {
    handleUsersData(): void {
       if (this.users.length) {
          this.users.forEach(element => {
-            if (element.extraRole.length) {
+            if (element.extraRole && element.extraRole.length) {
                element.extraRole.forEach(roleElement => {
                   this.updateUserSeries(roleElement)
                });
             }
             this.updateUserSeries(element.userType)
+         });
+      }
+   }
+
+   handlePatients(): void {
+      if (this.patients.length) {
+         this.patientsChartOptions.series[0].data[0] = this.totalPatients;
+         this.patients.forEach(element => {
+            if (element.isActive === "true".trim()) {
+               this.currentPatients++;
+               this.patientsChartOptions.series[0].data[1] = this.currentPatients;
+            } else {
+               this.pastPatients++;
+               this.patientsChartOptions.series[0].data[2] = this.pastPatients;
+            }
+            this.updateForm = true;
+         });
+      }
+   }
+
+   handleDevices(): void {
+      if (this.devices.length) {
+         this.devicesChartOptions.series[0].data[0] = this.totalDevices;
+         this.devices.forEach(element => {
+            if (element.isAssigned === "true".trim()) {
+               this.assignedDevices++;
+               this.devicesChartOptions.series[0].data[1] = this.assignedDevices;
+               this.devicesChartOptions.series[0].data[2] = this.assignedDevices;
+            } else {
+               this.inactiveDevices++;
+               this.devicesChartOptions.series[0].data[3] = this.inactiveDevices;
+            }
+            this.updateForm = true;
          });
       }
    }
@@ -252,6 +296,10 @@ export class HomeComponent {
          case 'smartxengineer':
             this.engineerCount++;
             this.chartOptions.series[0].data[3] = ['Support Engineers', this.engineerCount];
+            break;
+         case 'Patient':
+            this.patientCount++;
+            this.chartOptions.series[0].data[3] = ['Patients', this.patientCount];
             break;
       }
       this.updateForm = true;

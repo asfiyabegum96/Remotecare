@@ -113,7 +113,7 @@ export class HomeComponent {
       xAxis: {
          categories: ['Total devices', 'Assigned to doctors & service providers', 'Active devices', 'Inactive devices',], title: {
             text: null
-         }
+         },
       },
       yAxis: {
          min: 0, title: {
@@ -121,7 +121,7 @@ export class HomeComponent {
          },
          labels: {
             overflow: 'justify'
-         }
+         },
       },
       plotOptions: {
          bar: {
@@ -194,7 +194,7 @@ export class HomeComponent {
       series: [
          {
             name: 'Count',
-            data: [0, 0, 0],
+            data: [10, 20, 30],
             borderRadius: 10
          },
 

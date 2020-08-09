@@ -1,38 +1,39 @@
 <style>
     ul.tree li {
-    list-style-type: none;
-    position: relative;
-}
+        list-style-type: none;
+        position: relative;
+    }
 
-ul.tree li ul {
-    display: none;
-}
+    ul.tree li ul {
+        display: none;
+    }
 
-ul.tree li.open > ul {
-    display: block;
-}
+    ul.tree li.open>ul {
+        display: block;
+    }
 
-ul.tree li a {
-    color: black;
-    text-decoration: none;
-}
+    ul.tree li a {
+        color: black;
+        text-decoration: none;
+    }
 
-ul.tree li a:before {
-    height: 1em;
-    padding:0 .1em;
-    font-size: .8em;
-    display: block;
-    position: absolute;
-    left: -1.3em;
-    top: .2em;
-}
-ul.tree li > a:not(:last-child):before {
-    content: '+';
-}
+    ul.tree li a:before {
+        height: 1em;
+        padding: 0 .1em;
+        font-size: .8em;
+        display: block;
+        position: absolute;
+        left: -1.3em;
+        top: .2em;
+    }
 
-ul.tree li.open > a:not(:last-child):before {
-    content: '-';
-}
+    ul.tree li>a:not(:last-child):before {
+        content: '+';
+    }
+
+    ul.tree li.open>a:not(:last-child):before {
+        content: '-';
+    }
 </style>
 
 
@@ -67,70 +68,72 @@ ul.tree li.open > a:not(:last-child):before {
             <li class="header">OPTIONS</li>
             <li class="active treeview menu-open">
                 <a [routerLink]="['/dashboard/home']">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard" style="font-size: large;margin-right: 3%;"></i> <span>Dashboard</span>
 
                 </a>
 
             </li>
-            
+
             <li class="treeview" data-widget="tree">
                 <a *ngIf="!smart()" style="cursor: pointer;" [routerLink]="['/dashboard/view-user']">
-                    <i class="fa fa-user-circle"></i>
+                    <i class="fa fa-user-circle" style="font-size: large;margin-right: 3%;"></i>
                     <span>Users</span>
                     <span class="pull-right-container">
-                       
+
                     </span>
                 </a>
-               
-               
+
+
             </li>
-           
+
             <!-- <li><a style="cursor: pointer;" [routerLink]="['/dashboard/view-user']"><i class="fa fa-user-circle">
                         <span>Users</span></a></li> -->
             <li class="treeview" data-widget="tree">
                 <a style="cursor: pointer;" [routerLink]="['/dashboard/view-device']">
-                    <i class="fa fa-tablet" ></i>
+                    <i class="fa fa-tablet" style="font-size: large;margin-right: 3%;"></i>
                     <span>Devices</span>
                     <span class="pull-right-container">
 
                     </span>
                 </a>
-               
+
             </li>
             <li class="treeview">
                 <a *ngIf="showuser()" style="cursor: pointer;" [routerLink]="['/dashboard/view-org']">
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-users" style="font-size: large;margin-right: 3%;"></i>
                     <span>Organisation Unit</span>
                     <span class="pull-right-container">
 
                     </span>
                 </a>
-               
+
             </li>
             <li class="treeview">
-                <a *ngIf="user()" style="cursor: pointer;"  [routerLink]="['/dashboard/view-allocate']">
-                    <i class="fa fa-exchange"></i>
+                <a *ngIf="user()" style="cursor: pointer;" [routerLink]="['/dashboard/view-allocate']">
+                    <i class="fa fa-exchange" style="font-size: large;margin-right: 3%;"></i>
                     <span>Allocate Device</span>
                     <span class="pull-right-container">
 
                     </span>
                 </a>
-                
+
             </li>
             <li class="treeview">
                 <a *ngIf="showuser()" style="cursor: pointer;" [routerLink]="['/dashboard/view-assign']">
-                    <i class="fa fa-exchange"></i>
+                    <i class="fa fa-exchange" style="font-size: large;margin-right: 3%;"></i>
                     <span>Assign Device</span>
                     <span class="pull-right-container">
 
                     </span>
                 </a>
-               
+
             </li>
 
-            <li><a style="cursor: pointer;" (click)="logMeOut()"><i class="fa fa-th"></i> <span>Log-Out</span></a></li>
+            <li><a style="cursor: pointer;" (click)="logMeOut()"><i class="fa fa-th"
+                        style="font-size: large;margin-right: 3%;"></i>
+                    <span>Log-Out</span></a></li>
 
-            
+
             <!-- <li class="treeview">
                 <a>
                     <i class="fa fa-files-o"></i>
@@ -293,7 +296,7 @@ ul.tree li.open > a:not(:last-child):before {
        </section>
              /.sidebar -->
         </ul>
-    
+
     </section>
 </aside>
 <router-outlet></router-outlet>

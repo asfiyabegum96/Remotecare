@@ -31,7 +31,10 @@ export class HomeComponent {
             cursor: 'pointer',
 
             dataLabels: {
-               enabled: false
+               enabled: true,
+               formatter: function () {
+                  return this.key + '<br>Count: ' + this.y;
+               }
             },
 
             showInLegend: true
@@ -60,7 +63,7 @@ export class HomeComponent {
          text: 'Alerts'
       },
       tooltip: {
-         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+         pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       plotOptions: {
          pie: {
@@ -69,9 +72,11 @@ export class HomeComponent {
             cursor: 'pointer',
 
             dataLabels: {
-               enabled: false
+               enabled: true,
+               formatter: function () {
+                  return this.key + '<br>Count: ' + this.y;
+               }
             },
-
             showInLegend: true
          }
       },
@@ -79,10 +84,10 @@ export class HomeComponent {
          type: 'pie',
          name: 'Alerts count',
          data: [
-            ['Total Alerts', 45.0],
+            ['Total Alerts', 50],
             {
                name: 'Red Alerts',
-               y: 12.8,
+               y: 15,
                sliced: true,
                selected: true
             },
@@ -102,7 +107,7 @@ export class HomeComponent {
          layout: 'vertical',
          align: 'left',
          verticalAlign: 'top',
-         x: 250,
+         x: 500,
          y: 100,
          floating: true,
          borderWidth: 1,
@@ -157,7 +162,7 @@ export class HomeComponent {
          layout: 'vertical',
          align: 'left',
          verticalAlign: 'top',
-         x: 250,
+         x: 500,
          y: 100,
          floating: true,
          borderWidth: 1,
@@ -194,7 +199,7 @@ export class HomeComponent {
       series: [
          {
             name: 'Count',
-            data: [10, 20, 30],
+            data: [0, 0, 0],
             borderRadius: 10
          },
 
@@ -204,7 +209,6 @@ export class HomeComponent {
    updateForm: boolean;
    users: Array<any> = [];
    totalDevices = 0;
-   totalPatients = 0;
    adminCount = 0;
    serviceCount = 0;
    engineerCount = 0;
@@ -220,14 +224,12 @@ export class HomeComponent {
    ) { }
 
    ngOnInit() {
-      forkJoin(this.service.getuser(null), this.service.getdevice(null), this.service.getpatient())
+      forkJoin(this.service.getuser(null), this.service.getdevice(null))
          .subscribe((dataArray: Array<any>) => {
             this.users = dataArray[0].data;
             this.totalUsers = dataArray[0].data ? dataArray[0].data.length : 0;
             this.totalDevices = dataArray[1].data ? dataArray[1].data.length : 0;
             this.devices = dataArray[1].data;
-            this.patients = dataArray[2].data;
-            this.totalPatients = dataArray[2].data ? dataArray[2].data.length : 0;
             this.handleUsersData();
             this.handlePatients();
             this.handleDevices();
@@ -239,21 +241,20 @@ export class HomeComponent {
    handleUsersData(): void {
       if (this.users.length) {
          this.users.forEach(element => {
-            if (element.extraRole && element.extraRole.length) {
-               element.extraRole.forEach(roleElement => {
-                  this.updateUserSeries(roleElement)
-               });
-            }
-            this.updateUserSeries(element.userType)
+            // if (element.extraRole && element.extraRole.length) {
+            //    element.extraRole.forEach(roleElement => {
+            //       this.updateUserSeries(roleElement)
+            //    });
+            // }
+            this.updateUserSeries(element.userType, element)
          });
       }
    }
 
    handlePatients(): void {
       if (this.patients.length) {
-         this.patientsChartOptions.series[0].data[0] = this.totalPatients;
          this.patients.forEach(element => {
-            if (element.isActive === "true".trim()) {
+            if (element.isActive === "true".trim() || element.isActive === true) {
                this.currentPatients++;
                this.patientsChartOptions.series[0].data[1] = this.currentPatients;
             } else {
@@ -269,7 +270,7 @@ export class HomeComponent {
       if (this.devices.length) {
          this.devicesChartOptions.series[0].data[0] = this.totalDevices;
          this.devices.forEach(element => {
-            if (element.isAssigned === "true".trim()) {
+            if (element.assignedToAdmin) {
                this.assignedDevices++;
                this.devicesChartOptions.series[0].data[1] = this.assignedDevices;
                this.devicesChartOptions.series[0].data[2] = this.assignedDevices;
@@ -282,7 +283,7 @@ export class HomeComponent {
       }
    }
 
-   updateUserSeries(element) {
+   updateUserSeries(element, currentUser) {
       switch (element) {
          case 'superadmin':
          case 'admin':
@@ -298,8 +299,11 @@ export class HomeComponent {
             this.chartOptions.series[0].data[3] = ['Support Engineers', this.engineerCount];
             break;
          case 'Patient':
+            this.patients.push(currentUser)
             this.patientCount++;
-            this.chartOptions.series[0].data[3] = ['Patients', this.patientCount];
+            this.chartOptions.series[0].data[0] = ['Patients', this.patientCount];
+            this.patientsChartOptions.series[0].data[0] = this.patientCount;
+
             break;
       }
       this.updateForm = true;

@@ -7,8 +7,8 @@ import { query } from '@angular/animations';
   providedIn: 'root'
 })
 export class BackendserviceService {
-// baseurl='http://localhost:3000'
-baseurl='http://13.234.117.104:3000'
+baseurl='http://localhost:3000'
+// baseurl='http://13.234.117.104:3000'
 
 constructor(private http: HttpClient,
   ) { }

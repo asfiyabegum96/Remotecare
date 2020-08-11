@@ -26,6 +26,7 @@ export class UpdateUserComponent implements OnInit {
    
     {id:true},{id:false}];
  selected="true"
+  userDetails: any;
   constructor(
     private route:ActivatedRoute,
     private router:Router,
@@ -45,6 +46,12 @@ export class UpdateUserComponent implements OnInit {
       address2:'',
       location:'',
       emailId:'',
+      country: '',
+      state: '',
+      district: '',
+      city: '',
+      zipcode: '',
+      village: '',
       mobileNumber:['',Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10)])],
      
       extraRole:'',
@@ -83,7 +90,8 @@ public show(): boolean {
       ]).subscribe(
         result=>{
           console.log(result);
-          this.code=result[1].data
+          this.code=result[1].data;
+          this.userDetails = result[0].data[0];
           console.log(this.code)
           this.updateform.patchValue({
           _id:result[0].data[0]._id,
@@ -100,7 +108,13 @@ public show(): boolean {
                     emailId:result[0].data[0].emailId,
                     extraRole:result[0].data[0].extraRole,
                     location:result[0].data[0].location,
-                     isActive:result[0].data[0].isActive,})
+                    country: result[0].data[0].country,
+                    state: result[0].data[0].state,
+                    district: result[0].data[0].district,
+                    city: result[0].data[0].city,
+                    zipcode: result[0].data[0].zipcode,
+                    village: result[0].data[0].village,
+                    isActive:result[0].data[0].isActive,})
                    
         }
       ),error=>{

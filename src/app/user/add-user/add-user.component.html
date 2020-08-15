@@ -144,7 +144,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
 
                 <mat-form-field>
                     <mat-label>User Type</mat-label>
@@ -153,13 +153,24 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div *ngIf="temp.value=='admin'">
                     <mat-form-field>
                         <mat-label>Extra role</mat-label>
-                        <mat-select formControlName="extraRole" multiple #temp>
+                        <mat-select formControlName="extraRole" multiple>
                             <mat-option *ngFor="let multipleuser of multipleuser" [value]="multipleuser">
                                 {{multipleuser}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div *ngIf="temp.value=='admin'">
+                    <mat-form-field>
+                        <mat-label>organization</mat-label>
+                        <mat-select (selectionChange)="organizationSelect()" formControlName="organization" required>
+                            <mat-option *ngFor="let organization of organizations" [value]="organization.OrganizationId">
+                                {{organization.OrganizationId}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -167,63 +178,60 @@
         </div>
 
 
-
         <div class="row">
-            <div class="col-md-6">
-                <mat-form-field>
-                    <mat-label>Choose hierarchy levels</mat-label>
-                    <mat-select formControlName="hierarchyLevels" (selectionChange)="hierarchySelect()"
-                        name="hierarchyLevels" required>
-                        <mat-option *ngFor="let type of levels" [value]="type">
-                            {{type}}
-                            <button type="button" (click)="hierarchySelect()" style="float: right; border: none;"
-                                name="button">+</button>
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
             <div class="col-md-6">
                 <mat-form-field *ngIf="Country">
                     <mat-label>Country</mat-label>
                     <input type="text" matInput formControlName="country" autocomplete="off" required>
                 </mat-form-field>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-6">
                 <mat-form-field *ngIf="State">
                     <mat-label>State</mat-label>
                     <input type="text" matInput formControlName="state" autocomplete="off" required>
                 </mat-form-field>
             </div>
+
+        </div>
+
+        <div class="row">
+
             <div class="col-md-6">
                 <mat-form-field *ngIf="District">
                     <mat-label>District</mat-label>
                     <input type="text" matInput formControlName="district" autocomplete="off" required>
                 </mat-form-field>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-6">
                 <mat-form-field *ngIf="City">
                     <mat-label>City</mat-label>
                     <input type="text" matInput formControlName="city" autocomplete="off" required>
                 </mat-form-field>
             </div>
+        </div>
+
+        <div class="row">
+
             <div class="col-md-6">
                 <mat-form-field *ngIf="Zipcode">
                     <mat-label>Zipcode</mat-label>
                     <input type="text" matInput formControlName="zipcode" autocomplete="off" required>
                 </mat-form-field>
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
                 <mat-form-field *ngIf="Village">
                     <mat-label>Village</mat-label>
                     <input type="text" matInput formControlName="village" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row" hidden="true">
+
+            <div class="col-md-6">
+                <mat-form-field [hidden]="true">
+                    <mat-label>File</mat-label>
+                    <input type="text" matInput formControlName="fileName" autocomplete="off" required>
                 </mat-form-field>
             </div>
         </div>

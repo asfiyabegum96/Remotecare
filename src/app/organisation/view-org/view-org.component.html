@@ -46,6 +46,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">  Pin Code </th>
           <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.pin}} </td>
         </ng-container>
+        <ng-container matColumnDef="hierarchyLevels">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">Hierarchy Levels </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.hierarchyLevels}} </td>
+        </ng-container>
        
         <ng-container   matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;">Edit </th>

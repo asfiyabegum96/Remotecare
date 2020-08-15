@@ -110,50 +110,7 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field *ngIf="show&&!user">
-                    <mat-label>Country</mat-label>
-                    <input type="text" matInput formControlName="country" autocomplete="off" required>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6">
-                <mat-form-field *ngIf="show&&!user">
-                    <mat-label>State</mat-label>
-                    <input type="text" matInput formControlName="state" autocomplete="off" required>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field *ngIf="show&&!user">
-                    <mat-label>District</mat-label>
-                    <input type="text" matInput formControlName="district" autocomplete="off" required>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6">
-                <mat-form-field *ngIf="show&&!user">
-                    <mat-label>City</mat-label>
-                    <input type="text" matInput formControlName="city" autocomplete="off" required>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field *ngIf="show&&!user">
-                    <mat-label>Zipcode</mat-label>
-                    <input type="text" matInput formControlName="zipcode" autocomplete="off" required>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6">
-                <mat-form-field *ngIf="show&&!user">
-                    <mat-label>Village</mat-label>
-                    <input type="text" matInput formControlName="village" autocomplete="off" required>
-                </mat-form-field>
-            </div>
-        </div>
+        
 
 
 
@@ -212,6 +169,51 @@
                 </div>
             </div>
         </div>
+       
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user&&country">
+                    <mat-label>Country</mat-label>
+                    <input type="text" matInput formControlName="country" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user&&state">
+                    <mat-label>State</mat-label>
+                    <input type="text" matInput formControlName="state" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user&&district">
+                    <mat-label>District</mat-label>
+                    <input type="text" matInput formControlName="district" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user&&city">
+                    <mat-label>City</mat-label>
+                    <input type="text" matInput formControlName="city" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user&&zipcode">
+                    <mat-label>Zipcode</mat-label>
+                    <input type="text" matInput formControlName="zipcode" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field *ngIf="user&&village">
+                    <mat-label>Village</mat-label>
+                    <input type="text" matInput formControlName="village" autocomplete="off" required>
+                </mat-form-field>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <mat-form-field *ngIf="user">
@@ -228,7 +230,6 @@
             </div>
 
         </div>
-
         <button type="submit" mat-raised-button>Register</button>
         <!-- <button type="submit" [disabled]="updateform.pristine || updateform.invalid" mat-raised-button>Register</button> -->
     </form>

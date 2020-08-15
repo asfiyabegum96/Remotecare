@@ -23,7 +23,7 @@ export class HeaderComponent{
   
     public user() {
         var userInfo = JSON.parse(localStorage.getItem("userInfo"))
-    
+        this.service.logo = userInfo.fileName;
         if (userInfo.userType === "admin") {
           return true
         } else {

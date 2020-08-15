@@ -7,6 +7,7 @@ import { query } from '@angular/animations';
   providedIn: 'root'
 })
 export class BackendserviceService {
+logo;
 baseurl='http://localhost:3000'
 // baseurl='http://13.234.117.104:3000'
 
@@ -183,6 +184,9 @@ addcountry(countryform){
 getcountry(){
   return this.http.get<any>(this.baseurl+'/remotecare/r/countrycode');
 }
+getAlerts(){
+  return this.http.get<any>(this.baseurl+'/remotecare/r/demodata');
+ }
 }
 
 

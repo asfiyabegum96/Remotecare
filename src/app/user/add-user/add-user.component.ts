@@ -20,6 +20,7 @@ export class AddUserComponent implements OnInit {
   City: Boolean;
   Zipcode: Boolean;
   Village: Boolean;
+  Global: Boolean;
   levels: string[] = ['Global', 'Country', 'State', 'District', 'City', 'Zipcode', 'Village'];
   type: string[] = ['smartxengineer', 'admin'];
   multipleuser: string[] = ['ServiceProvider']
@@ -29,6 +30,7 @@ export class AddUserComponent implements OnInit {
   user: Boolean;
   sp: Boolean;
   userType;
+  organizationDetails: any;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -42,20 +44,22 @@ export class AddUserComponent implements OnInit {
       gender: '',
       age: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(99)])],
       address: '',
-      hierarchyLevels: 'Global',
       emailId: '',
       mobileNumber: ['', Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(10)])],
       address2: '',
       location: '',
       extraRole: '',
       country: '',
-      state : '',
+      state: '',
       district: '',
       city: '',
       zipcode: '',
-      village: ''
+      village: '',
+      fileName: '',
+      organization: ''
     })
   }
+  organizations = [];
   get f() { return this.Userform.controls; }
   public localStorageItem(): boolean {
     var userInfo = JSON.parse(localStorage.getItem("userInfo"))
@@ -79,9 +83,26 @@ export class AddUserComponent implements OnInit {
   }
   ngOnInit() {
     this.user = this.localStorageItem();
+    this.service.getservice().subscribe((organization) => {
+      if (organization && organization.data && organization.data[0] && organization.data[0].hierarchyLevels) {
+        this.organizationDetails = organization.data[0];
+        this.organizations = organization.data;
+        // organization.data[0].hierarchyLevels.forEach(element => {
+        //   var fields = element.split(',');
+        //   if (fields.length > 1) {
+        //     fields.forEach(fieldElement => {
+        //       this[fieldElement] = true
+        //     });
+        //   } else {
+        //     this[element] = true
+        //   }
+        // });
+      }
+    })
   }
   onSubmit() {
     this.Userform.value.userId = this.Userform.value.emailId;
+    this.Userform.value.fileName = this.organizationDetails.file;
     var userInfo = JSON.parse(localStorage.getItem("userInfo"))
     console.log(userInfo.userType)
     if (userInfo.userType === "admin") {
@@ -108,10 +129,29 @@ export class AddUserComponent implements OnInit {
     )
   }
 
-  hierarchySelect() {
-    const selectedValue = this.Userform.value.hierarchyLevels;
-    this[selectedValue] = true;
-    this.levels = this.levels.filter((data) => data !== selectedValue);
+  organizationSelect() {
+    const selectedValue = this.Userform.value.organization;
+    this.Country = false;
+    this.District = false;
+    this.State = false;
+    this.Zipcode = false;
+    this.City = false;
+    this.Village = false;
+    this.organizations.forEach(element => {
+      if (element.OrganizationId === selectedValue) {
+        var fields = element.hierarchyLevels;
+        if (fields.length > 1) {
+          fields.forEach(fieldElement => {
+            this[fieldElement] = true
+          });
+        } else {
+          var splitfields = element.hierarchyLevels[0].split(',');
+          splitfields.forEach(splitElement => {
+            this[splitElement] = true
+          });
+        }
+      }
+    });
   }
 
 }

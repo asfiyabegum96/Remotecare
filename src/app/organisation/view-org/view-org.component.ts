@@ -14,7 +14,7 @@ import { BackendserviceService } from 'src/app/backendservice.service';
 })
 export class ViewOrgComponent implements OnInit {
   userType:Boolean;
-  displayedColumns: string[] = ['OrganizationId', 'OrganizationName', 'address1', 'address2','district','state','pin','delete','edit'];
+  displayedColumns: string[] = ['OrganizationId', 'OrganizationName', 'address1', 'address2','district','state','pin','hierarchyLevels','delete','edit'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

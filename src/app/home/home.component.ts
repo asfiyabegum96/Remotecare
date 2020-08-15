@@ -47,8 +47,8 @@ export class HomeComponent {
          data: [
             ['Patients', 0],
             ['Admins', 0],
-            ['Doctors & Service providers', 0],
             ['Support Engineers', 0],
+            ['Doctors & Service providers', 0],
          ]
       }]
    };
@@ -70,7 +70,7 @@ export class HomeComponent {
 
             allowPointSelect: true,
             cursor: 'pointer',
-
+            size: 100,
             dataLabels: {
                enabled: true,
                formatter: function () {
@@ -84,10 +84,10 @@ export class HomeComponent {
          type: 'pie',
          name: 'Alerts count',
          data: [
-            ['Total Alerts', 50],
+            ['Total Alerts', 0],
             {
                name: 'Red Alerts',
-               y: 15,
+               y: 0,
                sliced: true,
                selected: true
             },
@@ -219,27 +219,33 @@ export class HomeComponent {
    devices = [];
    assignedDevices = 0;
    inactiveDevices = 0;
+   alerts = [];
+   redAlertCount = 0;
+   totalAlerts = 0;
    constructor(
       private service: BackendserviceService
    ) { }
 
    ngOnInit() {
-      forkJoin(this.service.getuser(null), this.service.getdevice(null))
+      forkJoin(this.service.getuser(null), this.service.getdevice(null), this.service.getAlerts())
          .subscribe((dataArray: Array<any>) => {
             this.users = dataArray[0].data;
             this.totalUsers = dataArray[0].data ? dataArray[0].data.length : 0;
             this.totalDevices = dataArray[1].data ? dataArray[1].data.length : 0;
             this.devices = dataArray[1].data;
+            this.alerts = dataArray[2].result ? dataArray[2].result.data : 0;
+            console.log(dataArray[2])
             this.handleUsersData();
             this.handlePatients();
             this.handleDevices();
+            this.handleAlerts()
          }, (error) => {
             console.log(error);
          })
    }
 
    handleUsersData(): void {
-      if (this.users.length) {
+      if (this.users && this.users.length) {
          this.users.forEach(element => {
             // if (element.extraRole && element.extraRole.length) {
             //    element.extraRole.forEach(roleElement => {
@@ -252,7 +258,7 @@ export class HomeComponent {
    }
 
    handlePatients(): void {
-      if (this.patients.length) {
+      if (this.patients && this.patients.length) {
          this.patients.forEach(element => {
             if (element.isActive === "true".trim() || element.isActive === true) {
                this.currentPatients++;
@@ -267,7 +273,7 @@ export class HomeComponent {
    }
 
    handleDevices(): void {
-      if (this.devices.length) {
+      if (this.devices && this.devices.length) {
          this.devicesChartOptions.series[0].data[0] = this.totalDevices;
          this.devices.forEach(element => {
             if (element.assignedToAdmin) {
@@ -283,6 +289,27 @@ export class HomeComponent {
       }
    }
 
+   handleAlerts(): void {
+      if (this.alerts && this.alerts.length) {
+         this.alerts.forEach(element => {
+            if (element.apiName === 'first') {
+               this.redAlertCount += parseInt(element.value, 10);
+               this.alertChartOptions.series[0].data[1] = {
+                  name: 'Red Alerts',
+                  y: this.redAlertCount,
+                  sliced: true,
+                  selected: true
+               };
+
+            } else {
+               this.totalAlerts += parseInt(element.value, 10);
+               this.alertChartOptions.series[0].data[0] = ['Total Alerts', this.totalAlerts];
+            }
+            this.updateForm = true;
+         });
+      }
+   }
+
    updateUserSeries(element, currentUser) {
       switch (element) {
          case 'superadmin':
@@ -292,11 +319,11 @@ export class HomeComponent {
             break;
          case 'ServiceProvider':
             this.serviceCount++;
-            this.chartOptions.series[0].data[2] = ['Doctors & Service providers', this.serviceCount];
+            this.chartOptions.series[0].data[3] = ['Doctors & Service providers', this.serviceCount];
             break;
          case 'smartxengineer':
             this.engineerCount++;
-            this.chartOptions.series[0].data[3] = ['Support Engineers', this.engineerCount];
+            this.chartOptions.series[0].data[2] = ['Support Engineers', this.engineerCount];
             break;
          case 'Patient':
             this.patients.push(currentUser)

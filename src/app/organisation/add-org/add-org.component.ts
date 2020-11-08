@@ -80,7 +80,7 @@ export class AddOrgComponent implements OnInit {
           var x;
           x = confirm("Are You Sure You Want To Navigate To View Page")
           if (x == true) {
-            this.router.navigate(['/view-service']);
+            this.router.navigate(['dashboard/view-org']);
           }
           else {
             this.serviceform.reset()

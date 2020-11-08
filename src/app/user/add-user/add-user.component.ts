@@ -102,7 +102,9 @@ export class AddUserComponent implements OnInit {
   }
   onSubmit() {
     this.Userform.value.userId = this.Userform.value.emailId;
-    this.Userform.value.fileName = this.organizationDetails.file;
+    if (this.organizationDetails && this.organizationDetails.file) {
+      this.Userform.value.fileName = this.organizationDetails.file;
+    }
     var userInfo = JSON.parse(localStorage.getItem("userInfo"))
     console.log(userInfo.userType)
     if (userInfo.userType === "admin") {
@@ -116,7 +118,7 @@ export class AddUserComponent implements OnInit {
         var x;
         x = confirm("Are You Sure You Want To Navigate To View Page")
         if (x == true) {
-          this.router.navigate(['/view-user']);
+          this.router.navigate(['dashboard/view-user']);
         }
         else {
           this.Userform.reset()

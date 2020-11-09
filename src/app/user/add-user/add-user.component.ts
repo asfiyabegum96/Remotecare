@@ -139,21 +139,23 @@ export class AddUserComponent implements OnInit {
     this.Zipcode = false;
     this.City = false;
     this.Village = false;
-    this.organizations.forEach(element => {
-      if (element.OrganizationId === selectedValue) {
-        var fields = element.hierarchyLevels;
-        if (fields.length > 1) {
-          fields.forEach(fieldElement => {
-            this[fieldElement] = true
-          });
-        } else {
-          var splitfields = element.hierarchyLevels[0].split(',');
-          splitfields.forEach(splitElement => {
-            this[splitElement] = true
-          });
+    if (this.Userform.value.userType !== 'admin' || this.Userform.value.extraRole.includes('ServiceProvider')) {
+      this.organizations.forEach(element => {
+        if (element.OrganizationId === selectedValue) {
+          var fields = element.hierarchyLevels;
+          if (fields.length > 1) {
+            fields.forEach(fieldElement => {
+              this[fieldElement] = true
+            });
+          } else {
+            var splitfields = element.hierarchyLevels[0].split(',');
+            splitfields.forEach(splitElement => {
+              this[splitElement] = true
+            });
+          }
         }
-      }
-    });
+      });
+    }
   }
 
 }

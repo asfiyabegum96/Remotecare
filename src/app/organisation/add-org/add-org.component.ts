@@ -32,7 +32,7 @@ export class AddOrgComponent implements OnInit {
       district: '',
       pin: '',
       file: '',
-      hierarchyLevels: 'Global',
+      hierarchyLevels: '',
     })
   }
   uploadFile(file) {
@@ -100,9 +100,20 @@ export class AddOrgComponent implements OnInit {
     const selectedValue = this.serviceform.value.hierarchyLevels;
     this[selectedValue] = true;
     this.selectedLevels.push(selectedValue);
-    this.hierarchyLevels = this.hierarchyLevels.filter((data) => data !== selectedValue);
+    const hierarchyLevels = this.hierarchyLevels;
+    let index;
+    if (hierarchyLevels.length) {
+      this.hierarchyLevels = [];
+      hierarchyLevels.forEach((element, i) => {
+        if (element === selectedValue) {
+          index = i
+        }
+      });
+      hierarchyLevels.forEach((element, i) => {
+        if (i > index) {
+          this.hierarchyLevels.push(element)
+        }
+      });
+    }
   }
-
-
-
 }

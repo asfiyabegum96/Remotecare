@@ -24,6 +24,7 @@ export class HeaderComponent{
     public user() {
         var userInfo = JSON.parse(localStorage.getItem("userInfo"))
         this.service.logo = userInfo.fileName;
+        this.service.userName = userInfo.userName;
         if (userInfo.userType === "admin") {
           return true
         } else {
@@ -57,6 +58,7 @@ export class HeaderComponent{
         x = confirm("Are You Sure You Want To Logout")
         if (x == true) {
           localStorage.clear();
+          this.service.userName = ''
           this.router.navigateByUrl('login');
         }
     }

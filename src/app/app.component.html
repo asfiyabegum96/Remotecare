@@ -22,9 +22,10 @@
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
           <span class="sr-only">Toggle navigation</span>
         </a>
-        <!-- <div class="image pull-right"> -->
-        <!-- <img width="3%" height="3%" src="assets/images/cp.jpg" class=" pull-right" alt="Logo"> -->
-        <!-- </div> -->
+        <div *ngIf="service?.userName !== ''" class="pull-right username">
+          <span>Hello {{service.userName}}!</span>
+          <!-- <img width="3%" height="3%" src="assets/images/cp.jpg" class=" pull-right" alt="Logo"> -->
+        </div>
       </nav>
     </header>
 

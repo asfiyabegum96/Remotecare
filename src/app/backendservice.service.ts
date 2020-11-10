@@ -8,6 +8,7 @@ import { query } from '@angular/animations';
 })
 export class BackendserviceService {
 logo;
+userName = ''
 baseurl='http://localhost:3000'
 // baseurl='http://13.234.117.104:3000'
 

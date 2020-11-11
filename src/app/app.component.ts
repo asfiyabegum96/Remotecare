@@ -8,5 +8,6 @@ import { BackendserviceService } from './backendservice.service';
 })
 export class AppComponent {
   title = 'app';
-  constructor(public service: BackendserviceService) { }
+  constructor(public service: BackendserviceService) {
+  }
 }

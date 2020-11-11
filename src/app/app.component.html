@@ -14,17 +14,22 @@
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>REMOTE</b>CARE</span>
-      </a>
 
+      </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
           <span class="sr-only">Toggle navigation</span>
         </a>
-        <div *ngIf="service?.userName !== ''" class="pull-right username">
-          <span>Hello {{service.userName}}!</span>
-          <!-- <img width="3%" height="3%" src="assets/images/cp.jpg" class=" pull-right" alt="Logo"> -->
+        <!-- <div *ngIf="service?.userName !== ''" class="pull-right username">
+          <span>Hello {{service.userName}}!</span> -->
+        <!-- <img width="3%" height="3%" src="assets/images/cp.jpg" class=" pull-right" alt="Logo"> -->
+        <!-- </div> -->
+        <div *ngIf="service?.userName !== ''">
+          <span class=" pull-right username">Hello {{service.userName}}!</span>
+          <img *ngIf="service?.imageToShow && !service?.isImageLoading" [src]="service?.imageToShow" width="3%"
+            height="3%" class=" pull-right username" alt="Logo">
         </div>
       </nav>
     </header>
